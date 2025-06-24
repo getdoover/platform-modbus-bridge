@@ -92,20 +92,20 @@ def gen_holding_registers():
     ## For the next 100 registers, map to analog inputs where the value is the analog input value / 1000
     for i in range(100, 200):
         registers[i] = {
-            "read": {"call": "get_ai", "read_args": {"ai": i - 100}, "divisor": 1000},
+            "read": {"call": "get_ai", "read_args": {"args": [i - 100]}, "divisor": 1000},
         }
 
     ## For the next 100 registers, map to digital outputs
     for i in range(200, 300):
         registers[i] = {
-            "read": {"call": "get_do", "read_args": {"do": i - 200}, "clean_func": lambda x: x > 0},
+            "read": {"call": "get_do", "read_args": {"args": [i - 200]}, "clean_func": lambda x: x > 0},
             "write": {"call": "set_do", "write_args": {"do": i - 200}, "write_value_key": "value", "clean_func": lambda x: x > 0}
         }
 
     ## For the next 100 registers, map to analog outputs where the value is the analog output value * 1000
     for i in range(300, 400):
         registers[i] = {
-            "read": {"call": "get_ao", "read_args": {"ao": i - 300}, "multiplier": 1000},
+            "read": {"call": "get_ao", "read_args": {"args": [i - 300]}, "multiplier": 1000},
             "write": {"call": "set_ao", "write_args": {"ao": i - 300}, "write_value_key": "value", "multiplier": 1000}
         }
 

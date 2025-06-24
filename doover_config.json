@@ -25,6 +25,7 @@
                     "x-name": "modbus_host",
                     "x-hidden": false,
                     "type": "string",
+                    "description": "The host to listen on for modbus connections. 0.0.0.0 means listen on all interfaces.",
                     "default": "0.0.0.0"
                 },
                 "modbus_port": {
@@ -32,7 +33,8 @@
                     "x-name": "modbus_port",
                     "x-hidden": false,
                     "type": "integer",
-                    "default": 5020,
+                    "description": "The port to listen on for modbus connections.",
+                    "default": 5002,
                     "minimum": 1,
                     "maximum": 65535
                 },
@@ -41,6 +43,7 @@
                     "x-name": "platform_interface_host",
                     "x-hidden": false,
                     "type": "string",
+                    "description": "The host to connect to the platform interface.",
                     "default": "127.0.0.1"
                 },
                 "platform_interface_port": {
@@ -48,6 +51,7 @@
                     "x-name": "platform_interface_port",
                     "x-hidden": false,
                     "type": "integer",
+                    "description": "The port to connect to the platform interface.",
                     "default": 50053,
                     "minimum": 1,
                     "maximum": 65535

@@ -11,7 +11,7 @@ from pymodbus.device import ModbusDeviceIdentification
 from .mappings import gen_holding_registers, handle_address_read, handle_address_write
 
 # Set up logging
-logging.basicConfig(level=logging.DEBUG)
+logging.basicConfig(level=logging.INFO)
 log = logging.getLogger(__name__)
 
 

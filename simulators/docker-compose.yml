@@ -15,6 +15,8 @@ services:
   platform_interface:
     image: spaneng/doover_platform_iface
     network_mode: host
+    ports:
+      - "50053:50053"
     restart: unless-stopped
     depends_on:
       - device_agent
@@ -22,7 +24,7 @@ services:
 
   sample_application:
     build: ../
-    # network_mode: host
+    network_mode: host
     ports:
       - "5002:5002"
     restart: unless-stopped

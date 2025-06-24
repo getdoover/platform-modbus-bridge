@@ -1,3 +1,5 @@
+import time
+
 from pymodbus.client import ModbusTcpClient
 from pymodbus.payload import BinaryPayloadBuilder, BinaryPayloadDecoder
 from pymodbus.constants import Endian
@@ -9,11 +11,21 @@ client.connect()
 print("Connected to Modbus server")
 
 # --- Read a single register (address 10) ---
-read_result = client.read_holding_registers(10, count=1, slave=1)
+read_start_time = time.time()
+read_result = client.read_holding_registers(100, count=1, slave=1)
+print(f"Read duration: {(time.time() - read_start_time) * 1000} ms")
 if read_result.isError():
-    print("Read error at register 10")
+    print("Read error at register 100")
 else:
-    print(f"Read from register 10: {read_result.registers[0]}")
+    print(f"Read from register 100: {read_result.registers[0]}")
+
+# # --- Write a single register (address 10) ---
+write_value = 123
+write_start_time = time.time()
+write_result = client.write_register(200, write_value, slave=1)
+print(f"Wrote duration: {(time.time() - write_start_time) * 1000} ms")
+print(f"Wrote {write_value} to register 200: {write_result}")
+
 
 # # --- Read multiple registers (starting at address 20) ---
 # read_result = client.read_holding_registers(20, count=3, slave=1)
@@ -21,12 +33,6 @@ else:
 #     print("Read error at registers 20-22")
 # else:
 #     print(f"Read from registers 20-22: {read_result.registers}")
-
-
-# # --- Write a single register (address 10) ---
-# write_value = 123
-# write_result = client.write_register(10, write_value, slave=1)
-# print(f"Wrote {write_value} to register 10: {write_result}")
 
 # # --- Write multiple registers (starting at address 20) ---
 # write_values = [11, 22, 33]
