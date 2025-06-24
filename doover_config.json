@@ -55,6 +55,9 @@
             },
             "additionalElements": true,
             "required": []
-        }
+        },
+        "key": "db1995bb-5c43-4345-9bcb-48153253882c",
+        "repo_branch": "main",
+        "staging_config": {}
     }
 }

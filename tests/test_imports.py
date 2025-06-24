@@ -5,8 +5,8 @@ This ensures all modules are importable and that the config is valid.
 """
 
 def test_import_app():
-    from platform_modbus_bridge.application import PlatformModbusBridgeApplication
-    assert PlatformModbusBridgeApplication
+    from platform_modbus_bridge.application import PlatformModbusBridge
+    assert PlatformModbusBridge
 
 def test_config():
     from platform_modbus_bridge.app_config import PlatformModbusBridgeConfig
