@@ -1,6 +1,6 @@
 {
-    "simulator_app_key": "sim_app_key",
-    "digital_input_count": 1,
-    "digital_output_count": 2,
-    "a_funny_message": "yeeha"
+    "modbus_host": "0.0.0.0",
+    "modbus_port": 5020,
+    "platform_interface_host": "127.0.0.1",
+    "platform_interface_port": "50053"
 }

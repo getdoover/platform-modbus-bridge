@@ -1,9 +1,6 @@
-# Doover Application Template
+# Doover Platform Interface Modbus Bridge
 
-This repository serves as a template for creating Doover applications.
-
-It provides a structured layout for application code, deployment configurations, simulators, and tests. The template is
-designed to simplify the development and deployment of Doover-compatible applications.
+This is a Doover App to provide a modbus TCP interface for platform interface.
 
 The basic structure of the repository is as follows:
 
@@ -15,11 +12,9 @@ pyproject.toml      <-- Python project configuration file (including dependencie
 Dockerfile          <-- Dockerfile for building the application image
 doover_config.json  <-- Configuration file for doover
 
-src/app_template/   <-- Application directory
+src/platform_modbus_bridge/   <-- Application directory
   application.py    <-- Main application code
   app_config.py     <-- Config schema definition
-  app_ui.py         <-- UI code (if applicable)
-  app_state.py      <-- State machine (if applicable)
 
 simulator/
   app_config.json   <-- Sample configuration for the simulator
