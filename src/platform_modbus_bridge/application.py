@@ -55,7 +55,7 @@ class PlatformModbusBridge:
         log.info("PlatformModbusBridge initialized")
         self.platform_interface = PlatformInterface(app_key="", plt_uri="localhost:50053")
 
-    async def run_server(self):
+    async def run_server(self, server_ip: str = "0.0.0.0", server_port: int = 5002):
         log.info("Setting up Modbus server...")
         
         # Create data blocks with async callbacks
@@ -73,9 +73,9 @@ class PlatformModbusBridge:
         identity.ModelName = 'PlatformModbusBridge'
         identity.MajorMinorRevision = '1.0'
 
-        log.info("Starting async Modbus TCP server on 0.0.0.0:5002")
+        log.info(f"Starting async Modbus TCP server on {server_ip}:{server_port}")
         try:
-            await StartAsyncTcpServer(context, identity=identity, address=("0.0.0.0", 5002))
+            await StartAsyncTcpServer(context, identity=identity, address=(server_ip, server_port))
         except Exception as e:
             log.error(f"Failed to start Modbus server: {e}")
             raise

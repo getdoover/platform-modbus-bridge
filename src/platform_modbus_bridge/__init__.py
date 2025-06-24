@@ -10,6 +10,10 @@ def main():
     """
     # run_app(PlatformModbusBridgeApplication(config=PlatformModbusBridgeConfig()))
 
+    SERVER_IP = "127.0.0.1"
+    SERVER_PORT = 5002
+
     ## Run the modbus bridge here.
     bridge = PlatformModbusBridge()
-    asyncio.run(bridge.run_server())
+    asyncio.run(bridge.run_server(SERVER_IP, SERVER_PORT))
+

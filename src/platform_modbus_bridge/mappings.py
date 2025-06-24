@@ -32,13 +32,16 @@ def handle_address_read(reg_map, plt, address, count=1):
         result = method(**read_args)
     
     log.debug(f"handle_address_read for address {address} count={count} result={result}")
-    
+    if result is None:
+        log.warning(f"handle_address_read for address {address} count={count} result is None")
+        return [0] * count
+
     # Handle single value vs list of values
     if not isinstance(result, list):
         result = [result]
     
     # Apply divisor and multiplier, then clean function
-    return [read_clean_func((x / read_divisor) * read_multiplier) for x in result]
+    return [int(read_clean_func((x / read_divisor) * read_multiplier)) for x in result]
 
 
 def handle_address_write(reg_map, plt, address, values):
@@ -68,10 +71,11 @@ def handle_address_write(reg_map, plt, address, values):
         # Call the method with the processed value
         if len(write_args) > 0:
             # If there are predefined args, use them and append the value
-            method(**write_args, **{write_value_key: processed_value})
+            write_result = method(**write_args, **{write_value_key: processed_value})
         else:
             # If no predefined args, just pass the value
-            method(processed_value)
+            write_result = method(processed_value)
+        log.debug(f"handle_address_write for address {address} values={values} write_result={write_result}")
     
     return True
 
@@ -84,29 +88,30 @@ def gen_holding_registers():
     # If the register is write-only, we need to not set the read args
 
     ## For the first 100 registers, just map to digital inputs
-    for i in range(100):
+
+    for i in range(1, 100):
         registers[i] = {
-            "read": {"call": "get_di", "read_args": {"args": [i]}},
+            "read": {"call": "get_di", "read_args": {"args": [i - 1]}},
         }
 
     ## For the next 100 registers, map to analog inputs where the value is the analog input value / 1000
-    for i in range(100, 200):
+    for i in range(101, 200):
         registers[i] = {
-            "read": {"call": "get_ai", "read_args": {"args": [i - 100]}, "divisor": 1000},
+            "read": {"call": "get_ai", "read_args": {"args": [i - 101]}, "divisor": 1000},
         }
 
     ## For the next 100 registers, map to digital outputs
-    for i in range(200, 300):
+    for i in range(201, 300):
         registers[i] = {
-            "read": {"call": "get_do", "read_args": {"args": [i - 200]}, "clean_func": lambda x: x > 0},
-            "write": {"call": "set_do", "write_args": {"do": i - 200}, "write_value_key": "value", "clean_func": lambda x: x > 0}
+            "read": {"call": "get_do", "read_args": {"args": [i - 201]}, "clean_func": lambda x: x > 0},
+            "write": {"call": "set_do", "write_args": {"do": i - 201}, "write_value_key": "value", "clean_func": lambda x: x > 0}
         }
 
     ## For the next 100 registers, map to analog outputs where the value is the analog output value * 1000
-    for i in range(300, 400):
+    for i in range(301, 400):
         registers[i] = {
-            "read": {"call": "get_ao", "read_args": {"args": [i - 300]}, "multiplier": 1000},
-            "write": {"call": "set_ao", "write_args": {"ao": i - 300}, "write_value_key": "value", "multiplier": 1000}
+            "read": {"call": "get_ao", "read_args": {"args": [i - 301]}, "multiplier": 1000},
+            "write": {"call": "set_ao", "write_args": {"ao": i - 301}, "write_value_key": "value", "multiplier": 1000}
         }
 
     ## Set some special registers
