@@ -12,6 +12,7 @@ dependencies = [
 
 [project.scripts]
 doover-app-run = "platform_modbus_bridge:main"
+export-config = "platform_modbus_bridge.app_config:export"
 
 [build-system]
 requires = ["hatchling"]

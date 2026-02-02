@@ -17,5 +17,8 @@ class PlatformModbusBridgeConfig(config.Schema):
         # self.sim_app_key = config.Application("Simulator App Key", description="The app key for the simulator")
 
 
-if __name__ == "__main__":
+def export():
     PlatformModbusBridgeConfig().export(Path(__file__).parent.parent.parent / "doover_config.json", "platform_modbus_bridge")
+
+if __name__ == "__main__":
+    export()

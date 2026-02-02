@@ -62,6 +62,15 @@
         },
         "key": "db1995bb-5c43-4345-9bcb-48153253882c",
         "repo_branch": "main",
-        "staging_config": {}
+        "staging_config": {},
+        "lambda_config": {},
+        "owner_org_id": null,
+        "container_registry_profile_id": "93955828574386692",
+        "id": "144013034694690308",
+        "organisation_id": null,
+        "code_repo_id": null,
+        "export_config_command": null,
+        "run_command": null,
+        "lambda_arn": null
     }
 }
